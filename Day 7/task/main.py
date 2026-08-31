@@ -1,16 +1,26 @@
-import random
+alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-word_list = ["aardvark", "baboon", "camel"]
 
-# TODO-1
-chosen_word = random.choice(word_list)
-print(chosen_word)
+def caesar(original_text, shift_amount, encode_or_decode):
+    if encode_or_decode == "decode":
+        shift_amount *= -1
 
-# TODO-2
-guess = input("Guess a letter: ").lower()
+    cipher_text = ""
 
-# TODO-3
-if guess in chosen_word:
-    print("Right")
-else:
-    print("Wrong")
+    for letter in original_text:
+        if letter in alphabet:
+            shift_position = alphabet.index(letter) + shift_amount
+            shift_position %= len(alphabet)
+            cipher_text += alphabet[shift_position]
+        else:
+            cipher_text += letter
+
+    print(f"Here is the {encode_or_decode}d result: {cipher_text}")
+
+
+direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
+text = input("Type your message:\n").lower()
+shift = int(input("Type the shift number:\n"))
+
+caesar(original_text=text, shift_amount=shift, encode_or_decode=direction)
